@@ -1,6 +1,6 @@
-import { Logo } from './logo'
+import { Logo } from "./logo";
 
-export function App() {
+export function App({ productName }: { productName: string }) {
   return (
     <>
       <Logo />
@@ -15,6 +15,7 @@ export function App() {
           Learn Preact
         </a>
       </p>
+      <p>Product Name: {productName}</p>
     </>
-  )
+  );
 }
