@@ -3,7 +3,7 @@ import { App } from "../../src/app";
 
 export { Page };
 
-function Page() {
-  // function Page({ productName }: PageProps) {
-  return <App productName={"Awesome fsd T-shirt"} />;
+// function Page() {
+function Page({ productName }: PageProps) {
+  return <App productName={productName} />;
 }

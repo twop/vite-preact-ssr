@@ -12,7 +12,7 @@ export function App({ productName }: { productName: string }) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn Preact
+          Learn Preact!!
         </a>
       </p>
       <p>Product Name: {productName}</p>

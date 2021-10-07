@@ -3,10 +3,26 @@ import { escapeInject, dangerouslySkipEscape } from "vite-plugin-ssr";
 import type { PageContext, PageProps } from "./types";
 import type { PageContextBuiltIn } from "vite-plugin-ssr/types";
 
-export { render };
+export { render, onBeforeRender };
 
 // See https://vite-plugin-ssr.com/data-fetching
 export const passToClient = ["pageProps", "urlPathname"];
+
+async function onBeforeRender(pageContext: PageContext) {
+  // `.page.server.js` files always run in Node.js; we could use SQL/ORM queries here.
+
+  console.log("onBeforeRender", pageContext);
+
+  const productName = "Server Product Name";
+
+  // We make `movies` available as `pageContext.pageProps.movies`
+  const pageProps = { productName };
+  return {
+    pageContext: {
+      pageProps,
+    },
+  };
+}
 
 async function render(pageContext: PageContextBuiltIn & PageContext) {
   const { Page, pageProps } = pageContext;
@@ -24,14 +40,9 @@ async function render(pageContext: PageContextBuiltIn & PageContext) {
       </body>
     </html>`;
 
-  const pageClientProps: PageProps = {
-    productName: "Stylish T-shirt",
-  };
-
   return {
     documentHtml,
     pageContext: {
-      pageProps: pageClientProps,
       // We can add some `pageContext` here, which is useful if we want to do page redirection https://vite-plugin-ssr.com/page-redirection
     },
   };

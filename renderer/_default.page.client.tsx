@@ -5,7 +5,13 @@ import type { PageContextBuiltInClient } from "vite-plugin-ssr/types";
 
 hydrateClient();
 
-console.log("yo");
+const counter = (() => {
+  let i = 0;
+  return () => i++;
+})();
+
+console.log("yo!", counter());
+
 async function hydrateClient() {
   // For Client Routing we should use `useClientRouter()` instead of `getPage()`.
   // See https://vite-plugin-ssr.com/useClientRouter
